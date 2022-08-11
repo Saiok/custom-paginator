@@ -1,0 +1,60 @@
+.mat-paginator-outer-container .mat-paginator-range-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-paginator-outer-container .mat-paginator-range-actions > button {
+  color: #5B21B6;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.mat-paginator-outer-container .mat-paginator-range-actions > button:disabled,
+.mat-paginator-outer-container .mat-paginator-range-actions > button[disabled] {
+  color: #737373;
+  cursor: default;
+}
+
+.mat-paginator-outer-container .mat-paginator-range-actions > .mat-paginator-page-index {
+  max-width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  /*
+  TODO:
+  Remove line under
+  */
+  background-color: aliceblue;
+}
+
+.mat-paginator-outer-container .mat-paginator-range-actions > .mat-paginator-page-index > .mat-paginator-page-index-item {
+  width: 36px;
+  max-width: 36px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid transparent;
+}
+
+.mat-paginator-outer-container .mat-paginator-range-actions > .mat-paginator-page-index > .mat-paginator-page-index-item:hover {
+  background-color: #ececec;
+}
+
+.mat-paginator-outer-container .mat-paginator-range-actions > .mat-paginator-page-index > .mat-paginator-page-index-item.active {
+  color: #5B21B6;
+  max-height: 36px;
+  border: 2px solid #5B21B6;
+}
