@@ -1,0 +1,1 @@
+Paginator component with custom styles
