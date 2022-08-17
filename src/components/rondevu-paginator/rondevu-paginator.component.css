@@ -12,6 +12,14 @@
   background-color: transparent;
 }
 
+.mat-paginator-outer-container .mat-paginator-range-actions > button.mat-paginator-navigation-next {
+  margin-left: 16px;
+}
+
+.mat-paginator-outer-container .mat-paginator-range-actions > button.mat-paginator-navigation-previous {
+  margin-right: 16px;
+}
+
 .mat-paginator-outer-container .mat-paginator-range-actions > button:disabled,
 .mat-paginator-outer-container .mat-paginator-range-actions > button[disabled] {
   color: #737373;
@@ -30,11 +38,6 @@
   padding: 0;
   margin: 0;
   overflow: hidden;
-  /*
-  TODO:
-  Remove line under
-  */
-  background-color: aliceblue;
 }
 
 .mat-paginator-outer-container .mat-paginator-range-actions > .mat-paginator-page-index > .mat-paginator-page-index-item {
@@ -57,4 +60,5 @@
   color: #5B21B6;
   max-height: 36px;
   border: 2px solid #5B21B6;
+  background-color: transparent;
 }

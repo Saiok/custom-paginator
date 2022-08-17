@@ -4,7 +4,7 @@
       {{ _intl.getRangeLabel(pageIndex, pageSize, length) }}
     </div>
 
-    <div class="mat-paginator-range-actions">
+    <div #actions class="mat-paginator-range-actions">
       <button
         type="button"
         class="mat-paginator-navigation-previous"
@@ -19,7 +19,7 @@
         <li
           class="mat-paginator-page-index-item"
           [ngClass]="{ active: pageIndex === item }"
-          *ngFor="let item of pageIndexes; trackBy: trackByFn"
+          *ngFor="let item of pageIndexes; index as i; trackBy: trackByFn"
           (click)="goToPage(item)"
         >
           <span>{{ item + 1 }}</span>
