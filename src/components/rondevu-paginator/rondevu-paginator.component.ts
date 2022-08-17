@@ -28,11 +28,13 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RondevuPaginatorComponent extends MatPaginator implements OnInit, AfterViewInit {
-  private static readonly NAVIGATION_BUTTON_WIDTH = 58;
+  private static readonly NAVIGATION_BUTTON_WIDTH = 66;
   private static readonly PAGE_INDEX_WIDTH = 40;
 
   @Input()
   set pageIndexSize(pageIndexSize: NumberInput) {
+    console.log('CALL', pageIndexSize, this._fitCount, this.maxAvaiblePageindexSize);
+    this.rangeEnd = null;
     this._pageIndexSize = coerceNumberProperty(pageIndexSize);
     this._fillPageIndexes();
     this.changeDetectorRef.markForCheck();
@@ -49,6 +51,7 @@ export class RondevuPaginatorComponent extends MatPaginator implements OnInit, A
   rangeEnd: number;
 
   private _pageIndexSize: number = null;
+  private _fitCount: number;
 
   constructor(
     intl: MatPaginatorIntl,
@@ -63,6 +66,9 @@ export class RondevuPaginatorComponent extends MatPaginator implements OnInit, A
   }
 
   ngAfterViewInit(): void {
+    this._fitCount = (this.actionsContainer.nativeElement.clientWidth - 2*RondevuPaginatorComponent.NAVIGATION_BUTTON_WIDTH) / RondevuPaginatorComponent.PAGE_INDEX_WIDTH;
+    this._fitCount = Math.floor(this._fitCount);
+    this._recalculatePageIndexSize();
   }
 
   get middleIndex(): number {
@@ -70,7 +76,7 @@ export class RondevuPaginatorComponent extends MatPaginator implements OnInit, A
   }
 
   get maxAvaiblePageindexSize(): number {
-    return  Math.ceil(this.length / this.pageSize);
+    return Math.ceil(this.length / this.pageSize);
   }
 
   goToPage(pageIndex: number): void {
@@ -87,10 +93,11 @@ export class RondevuPaginatorComponent extends MatPaginator implements OnInit, A
     return index;
   }
 
-  private _rerenderIndexes(pageIndex: number) {
+  private _rerenderIndexes(pageIndex: number): void {
     console.clear();
     pageIndex = this.pageIndexes.findIndex(item => item === pageIndex);
     const diff = Math.abs(pageIndex - this.middleIndex);
+    console.log({pageIndex, pageIndexSize: this.pageIndexSize, maxAvaiblePageindexSize: this.maxAvaiblePageindexSize, middleIndex: this.middleIndex, rangeStart: this.rangeStart, rangeEnd: this.rangeEnd, diff});
     if (pageIndex > this.middleIndex && this.rangeEnd !== this.maxAvaiblePageindexSize) {
       this.rangeEnd += diff;
       this.rangeEnd = this.rangeEnd > this.maxAvaiblePageindexSize ? this.maxAvaiblePageindexSize : this.rangeEnd;
@@ -112,21 +119,19 @@ export class RondevuPaginatorComponent extends MatPaginator implements OnInit, A
     }
   }
 
-  private _fillPageIndexes() {
+  private _fillPageIndexes(): void {
     this.pageIndexes = [];
     this.rangeEnd = this.rangeEnd || this._pageIndexSize;
     for (let i = this.rangeStart; i < this.rangeEnd; i++) {
       this.pageIndexes.push(i);
     }
-
-    console.log(this.pageIndexes, this._pageIndexSize);
   }
 
-  private _recalculatePageIndexSize() {
-    this.pageIndexSize = this._pageIndexSize > this.maxAvaiblePageindexSize ? this.maxAvaiblePageindexSize : this._pageIndexSize;
+  private _recalculatePageIndexSize(): void {
+    this.pageIndexSize = this._pageIndexSize > this._fitCount ? this._fitCount : this._pageIndexSize;
   }
 
-  private _emitGoToPageEvent(previousPageIndex: number) {
+  private _emitGoToPageEvent(previousPageIndex: number): void {
     this.page.emit({
       previousPageIndex,
       pageIndex: this.pageIndex,

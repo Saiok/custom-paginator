@@ -8,7 +8,7 @@
       <button
         type="button"
         class="mat-paginator-navigation-previous"
-        (click)="previousPage()"
+        (click)="goToPage(pageIndex - 1)"
         [attr.aria-label]="_intl.previousPageLabel"
         [disabled]="_previousButtonsDisabled()"
       >
@@ -29,7 +29,7 @@
       <button
         type="button"
         class="mat-paginator-navigation-next"
-        (click)="nextPage()"
+        (click)="goToPage(pageIndex + 1)"
         [attr.aria-label]="_intl.nextPageLabel"
         [disabled]="_nextButtonsDisabled()"
       >
